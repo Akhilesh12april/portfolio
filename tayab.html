@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroMantra - Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f5e6d3;
+            color: #4a3933;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            color: #4a3933;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #d35400;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #d35400;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-bar input {
+            padding: 12px 20px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+            z-index: 2;
+            background-color: #fff;
+            color: #4a3933;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(211,84,0,0.3);
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 3;
+        }
+
+        .search-suggestions ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .search-suggestions li {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-suggestions li:hover {
+            background-color: #f5e6d3;
+        }
+
+        /* Navigation Styles */
+        .categories {
+            display: flex;
+            justify-content: center;
+            background-color: #fff;
+            padding: 15px 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .categories button {
+            background-color: transparent;
+            color: #4a3933;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .categories button:hover,
+        .categories button.active {
+            color: #fff;
+            background-color: #d35400;
+            font-weight: 600;
+        }
+
+        /* Products Section */
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #f5e6d3;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 15px;
+            padding: 20px;
+            width: calc(33.333% - 30px);
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #d35400;
+        }
+
+        .product-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #4a3933;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d35400;
+            margin-bottom: 15px;
+        }
+
+        .product-card button {
+            background-color: #d35400;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card button:hover {
+            background-color: #a04000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .product-card {
+                width: calc(50% - 30px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: calc(100% - 30px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="animate__animated animate__fadeIn">
+        <h1>AstroMantra</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for products...">
+            <div class="search-suggestions" id="searchSuggestions">
+                <ul id="suggestionsList"></ul>
+            </div>
+        </div>
+    </header>
+
+    <nav class="categories animate__animated animate__slideInDown">
+        <button onclick="filterProducts('all')" class="active">All Products</button>
+        <button onclick="filterProducts('rudraksha')">Rudraksha</button>
+        <button onclick="filterProducts('gemstones')">Gemstones</button>
+        <button onclick="filterProducts('yantras')">Yantras</button>
+        <button onclick="filterProducts('malas')">Malas</button>
+        <button onclick="filterProducts('idols')">Idols</button>
+    </nav>
+
+    <section class="products" id="productList">
+        <div class="product-card rudraksha animate__animated animate__zoomIn">
+            <img src="https://s3.amazonaws.com/RudraCentre/ProductImages/Articles/Legend-of-Rudraksha-(Story-of-Rudraksha).jpg" alt="1 Mukhi Rudraksha">
+            <h2>1 Mukhi Rudraksha</h2>
+            <p>Original 1 Mukhi Rudraksha from Nepal. Certified and Energized.</p>
+            <p class="price">₹5,100.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-card gemstones animate__animated animate__zoomIn">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxUj4OFznosOeTLPOCP4ENAPkdhhbH0QK0cA&s" alt="Yellow Sapphire">
+            <h2>Yellow Sapphire</h2>
+            <p>Natural Yellow Sapphire (Pukhraj) Gemstone. Certified and Astrologically Powerful.</p>
+            <p class="price">₹4,500.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-card yantras animate__animated animate__zoomIn">
+            <img src="https://5.imimg.com/data5/EL/QY/MY-7674618/shri-yantra-500x500.jpg" alt="Shri Yantra">
+            <h2>Shri Yantra</h2>
+            <p>Shri Yantra for Wealth and Success. Energized and Blessed.</p>
+            <p class="price">₹3,800.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-card malas animate__animated animate__zoomIn">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv-k8rSjzXsiDNnZSx2nx3yD_yoVWRd3Bzpw&s" alt="Rudraksha Mala">
+            <h2>Rudraksha Mala</h2>
+            <p>108+1 Beads Rudraksha Mala for Meditation and Spiritual Awakening.</p>
+            <p class="price">₹2,300.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-card idols animate__animated animate__zoomIn">
+            <img src="https://i.etsystatic.com/27626002/r/il/963a7a/3407075939/il_570xN.3407075939_ogox.jpg" alt="Ganesha Idol">
+            <h2>Ganesha Idol</h2>
+            <p>Beautiful Brass Ganesha Idol. Perfect for Home and Office Décor.</p>
+            <p class="price">₹1,500.00</p>
+            <button>Add to Cart</button>
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            { name: '1 Mukhi Rudraksha', category: 'rudraksha' },
+            { name: 'Yellow Sapphire', category: 'gemstones' },
+            { name: 'Shri Yantra', category: 'yantras' },
+            { name: 'Rudraksha Mala', category: 'malas' },
+            { name: 'Ganesha Idol', category: 'idols' },
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const suggestionsList = document.getElementById('suggestionsList');
+        const productList = document.getElementById('productList');
+
+        // Filter products by category
+        function filterProducts(category) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.querySelector('.categories button.active').classList.remove('active');
+            document.querySelector(`.categories button[onclick="filterProducts('${category}')"]`).classList.add('active');
+        }
+
+        // Update search suggestions based on input
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+
+            if (filteredProducts.length > 0) {
+                searchSuggestions.style.display = 'block';
+                suggestionsList.innerHTML = filteredProducts.map(product => `<li>${product.name}</li>`).join('');
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+
+        // Handle click on a suggestion
+        suggestionsList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                searchInput.value = event.target.textContent;
+                searchSuggestions.style.display = 'none';
+                filterProductsByName(searchInput.value);
+            }
+        });
+
+        // Filter products based on search query
+        function filterProductsByName(query) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const productName = card.querySelector('h2').textContent.toLowerCase();
+                if (productName.includes(query.toLowerCase())) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Close the suggestions dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchSuggestions.contains(event.target) && !searchInput.contains(event.target)) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
